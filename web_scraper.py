@@ -43,6 +43,8 @@ async def get_links(cur_url: str) -> list[str]:
     return list(set(links))
 
 @app.local_entrypoint()
-def main(url):
-    links = get_links.remote(url)
-    print(links)
+def main():
+    urls = ["http://modal.com", "http://github.com"]
+    for links in get_links.map(urls):
+        for link in links:
+            print(link)
